@@ -10,7 +10,14 @@ function buildMetadata(sample) {
 
     d3.select('#sample-metadata').html("")
       // Use `.html("") to clear any existing metadata
-    Object.entries(data).map((array) => ({ [array[0]]: array[1] }))
+    Object.entries(data).forEach(([key, value]) => {
+      d3.select('#sample-metadata')
+      .append("li").text(`${key}: ${value}`)
+    });
+    
+    
+    
+ 
 
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new
@@ -20,7 +27,6 @@ function buildMetadata(sample) {
 }
 
 function buildCharts(sample) {
-  console.log("in bul")
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   
@@ -28,7 +34,6 @@ function buildCharts(sample) {
   d3.json(dataURL).then(function(data) {
 
     // @TODO: Build a Bubble Chart using the sample data
-    console.log("in promise")
     console.log(data);
 
     var trace1 = [{
@@ -49,7 +54,7 @@ function buildCharts(sample) {
     };
 
     Plotly.newPlot('bubble',trace1, bubble_layout);
-
+    // sort frame in pandas in app.py
     var ten_values = data.sample_values.slice(0,10);
     var ten_ids = data.otu_ids.slice(0,10);
     var ten_labels = data.otu_labels.slice(0,10);
